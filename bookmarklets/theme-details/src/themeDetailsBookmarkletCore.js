@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.3";
+  const bookmarketVersion = "0.1.4";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -25,30 +25,44 @@ if (!Shopify.theme) {
     customMessage: "",
   };
 
+  const isNewerVersion = (latestVersion, installedVersion) => {
+    const latestParts = `${latestVersion}`.split(".").map((part) => parseInt(part, 10) || 0);
+    const installedParts = `${installedVersion}`.split(".").map((part) => parseInt(part, 10) || 0);
+    const partCount = Math.max(latestParts.length, installedParts.length);
+
+    for (let i = 0; i < partCount; i++) {
+      const latestPart = latestParts[i] || 0;
+      const installedPart = installedParts[i] || 0;
+
+      if (latestPart > installedPart) return true;
+      if (latestPart < installedPart) return false;
+    }
+
+    return false;
+  };
+
   /**
    * Fetches the latest Brendan toolkit bookmarklet version and optional custom message.
    * If the GitHub version file is unavailable, the bookmarklet continues without an update warning.
    */
   const getBookmarkletVersionAndMessage = () => {
-    return fetch(bookmarkletVersionUrl)
+    const versionUrl = `${bookmarkletVersionUrl}?installed=${bookmarketVersion}&cacheBust=${Date.now()}`;
+
+    return fetch(versionUrl, { cache: "no-store" })
       .then((response) => response.json())
       .then((data) => [data.latestVersion, data.customMessage || defaultCustomMessage]);
   };
 
   /**
    * Compares the installed bookmarklet version with the latest version file in this toolkit repo.
-   * This displays a message to the user when a newer toolkit bookmarklet is available.
+   * This displays a message only when the toolkit version is newer than the installed bookmarklet.
    */
   const compareBookmarkletVersion = async () => {
     try {
       const [newestVersion, customMessageJson] =
         await getBookmarkletVersionAndMessage();
 
-      if (newestVersion == bookmarketVersion) {
-        return [false, customMessageJson];
-      } else {
-        return [true, customMessageJson];
-      }
+      return [isNewerVersion(newestVersion, bookmarketVersion), customMessageJson];
     } catch (error) {
       console.warn("Theme Details bookmarklet version check failed", error);
       return [false, defaultCustomMessage];
