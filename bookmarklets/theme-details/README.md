@@ -6,7 +6,7 @@ When run on a Shopify storefront, the bookmarklet opens a modal that shows the a
 
 ## Current toolkit version
 
-`0.1.6`
+`0.1.7`
 
 The installed bookmarklet checks this repo's `version.json` file for the latest version and will show an update message when the installed version is behind.
 
@@ -42,6 +42,8 @@ pnpm run build
 ```
 
 Commit both source changes and the rebuilt `themeDetailsBookmarklet.min.js`.
+
+The build step keeps `src/themes.json` as the full source of truth, but strips unused fields from the generated bookmarklet so the installed `javascript:` URL stays smaller.
 
 ## Versioning
 

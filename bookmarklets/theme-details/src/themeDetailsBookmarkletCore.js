@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.6";
+  const bookmarketVersion = "0.1.7";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {

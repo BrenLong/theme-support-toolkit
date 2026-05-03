@@ -1,8 +1,40 @@
 const terser = require("terser");
 const fs = require("fs");
 const path = require("path");
-// import json from "./themes.json";
-const themes = require("../src/themes.json");
+const sourceThemes = require("../src/themes.json");
+
+const usedThemeFields = [
+  "name",
+  "currentVersion",
+  "developer",
+  "shopifyPartner",
+  "supportDocs",
+  "customThemeNote",
+  "sunset",
+];
+
+const pruneThemesForBookmarklet = (themes) => {
+  return Object.fromEntries(
+    Object.entries(themes).map(([themeKey, themeDetails]) => {
+      const prunedThemeDetails = {};
+
+      usedThemeFields.forEach((field) => {
+        if (
+          Object.prototype.hasOwnProperty.call(themeDetails, field) &&
+          themeDetails[field] !== "" &&
+          themeDetails[field] !== null &&
+          themeDetails[field] !== undefined
+        ) {
+          prunedThemeDetails[field] = themeDetails[field];
+        }
+      });
+
+      return [themeKey, prunedThemeDetails];
+    })
+  );
+};
+
+const themes = pruneThemesForBookmarklet(sourceThemes);
 
 const baseCode = fs.readFileSync(
   path.join(__dirname, "../src/themeDetailsBookmarkletCore.js"),
