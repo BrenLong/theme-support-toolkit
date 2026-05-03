@@ -1,0 +1,12 @@
+{
+  "latestVersion": "0.1.0",
+  "customMessage": {
+    "enable": false,
+    "dependentTheme": "",
+    "dependentVersion": "",
+    "dependentThemeDev": "",
+    "textColour": "#000000",
+    "backgroundColour": "#ffffff",
+    "customMessage": ""
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@brenlong/theme-details-bookmarklet",
+  "version": "0.1.0",
+  "description": "A bookmarklet to identify Shopify storefront themes and provide links to support docs.",
+  "main": "themeDetailsBookmarklet.min.js",
+  "scripts": {
+    "build": "node utilities/themeMinifier.js",
+    "copy": "pnpm run build && cat themeDetailsBookmarklet.min.js | pbcopy",
+    "update:versions": "node utilities/updateThemeVersionsFromStore.js"
+  },
+  "eslintConfig": {
+    "globals": {
+      "window": true,
+      "Shopify": true,
+      "themes": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrenLong/theme-support-toolkit.git",
+    "directory": "bookmarklets/theme-details"
+  },
+  "author": "Stephen Dawson, Brendan Long",
+  "license": "ISC",
+  "homepage": "https://github.com/BrenLong/theme-support-toolkit/tree/main/bookmarklets/theme-details",
+  "dependencies": {
+    "terser": "^5.16.1"
+  }
+}
