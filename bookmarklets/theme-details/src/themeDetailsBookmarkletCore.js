@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.8";
+  const bookmarketVersion = "0.1.9";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -91,10 +91,44 @@ if (!Shopify.theme) {
     dialog.close();
   });
 
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) {
+  const isPointerOutsideDialog = (event) => {
+    const dialogRect = dialog.getBoundingClientRect();
+
+    return (
+      event.clientX < dialogRect.left ||
+      event.clientX > dialogRect.right ||
+      event.clientY < dialogRect.top ||
+      event.clientY > dialogRect.bottom
+    );
+  };
+
+  const closeOnOutsidePointerDown = (event) => {
+    if (dialog.open && isPointerOutsideDialog(event)) {
       dialog.close();
     }
+  };
+
+  const closeOnEscape = (event) => {
+    if (dialog.open && event.key === "Escape") {
+      event.preventDefault();
+      dialog.close();
+    }
+  };
+
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    dialog.close();
+  });
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog && isPointerOutsideDialog(event)) {
+      dialog.close();
+    }
+  });
+
+  dialog.addEventListener("close", () => {
+    document.removeEventListener("pointerdown", closeOnOutsidePointerDown, true);
+    document.removeEventListener("keydown", closeOnEscape, true);
   });
 
   const content = document.createElement("div");
@@ -103,7 +137,10 @@ if (!Shopify.theme) {
   dialog.appendChild(close);
   dialog.appendChild(content);
   document.body.appendChild(dialog);
+  document.addEventListener("pointerdown", closeOnOutsidePointerDown, true);
+  document.addEventListener("keydown", closeOnEscape, true);
   dialog.showModal();
+  dialog.focus();
 
   /**
    * Detects if the pagespeed spoofing script is present on the page
