@@ -13,7 +13,9 @@ Defaults the Shopify Theme Editor Preview inspector to off by setting the editor
 - File: [`userscripts/theme-editor-inspector-default-off.user.js`](userscripts/theme-editor-inspector-default-off.user.js)
 - Type: Tampermonkey/userscript
 - Scope: Local browser only
-- Target: Shopify Admin Theme Editor
+- Target: Shopify Admin and the embedded Online Store Web iframe
+
+The Theme Editor itself runs inside an embedded Online Store Web iframe, usually on `online-store-web.shopifyapps.com`. The userscript therefore matches both Shopify Admin and Online Store Web origins so the `previewInspectorEnabled` session storage value is set in the same browser context that the editor reads from.
 
 ## Install a userscript
 

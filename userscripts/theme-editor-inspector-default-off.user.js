@@ -1,12 +1,19 @@
 // ==UserScript==
 // @name         Shopify Theme Editor - Preview Inspector Default Off
 // @namespace    theme-support-toolkit
-// @version      1.0.0
-// @description  Defaults the Shopify Theme Editor Preview inspector to off by setting previewInspectorEnabled=false across Shopify Admin SPA navigation.
+// @version      1.1.0
+// @description  Defaults the Shopify Theme Editor Preview inspector to off by setting previewInspectorEnabled=false before Online Store Web initializes.
 // @author       Brendan Long
 // @match        https://admin.shopify.com/*
+// @match        https://admin.shop.dev/*
 // @match        https://*.myshopify.com/admin*
 // @match        https://*.myshopify.com/admin/*
+// @match        https://online-store-web.shopifyapps.com/*
+// @match        https://online-store-web.shop.dev/*
+// @match        https://online-store-web-canary.shopifycloud.com/*
+// @match        https://online-store-web-staging.shopifycloud.com/*
+// @match        https://online-store-web-staging2.shopifycloud.com/*
+// @match        https://online-store-web-staging3.shopifycloud.com/*
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
@@ -24,11 +31,14 @@
     }
   }
 
-  // Set immediately, before the Theme Editor app has a chance to initialize.
+  // Set immediately, before the Online Store Web / Theme Editor app has a
+  // chance to initialize. The Theme Editor runs inside an iframe on
+  // online-store-web.shopifyapps.com, so this script must match both Shopify
+  // Admin and Online Store Web origins.
   setInspectorOff();
 
-  // Shopify Admin can route client-side without a full page load. Patch history
-  // methods so the preference is re-applied on SPA navigation.
+  // Shopify Admin and Online Store Web can route client-side without a full page
+  // load. Patch history methods so the preference is re-applied on SPA navigation.
   const originalPushState = history.pushState;
   const originalReplaceState = history.replaceState;
 
@@ -48,8 +58,8 @@
   window.addEventListener('pageshow', setInspectorOff);
   document.addEventListener('DOMContentLoaded', setInspectorOff);
 
-  // Re-apply during the first few seconds in case another Admin script writes
-  // the default before the Theme Editor reads it.
+  // Re-apply during the first few seconds in case app code writes the default
+  // before the Theme Editor reads it.
   let attempts = 0;
   const interval = window.setInterval(function () {
     setInspectorOff();
