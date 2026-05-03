@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.2";
+  const bookmarketVersion = "0.1.3";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -271,38 +271,12 @@ if (!Shopify.theme) {
   const themeId = document.createElement("p");
   themeId.innerHTML = `<strong>Theme ID:</strong> ${Shopify.theme.id}`;
 
-  const rightCurlyBracket = document.createElement("span");
-  const copyPreviewLinkButton = document.createElement("button");
-  copyPreviewLinkButton.classList.add("clipboard-button", "copy-preview-link");
-  copyPreviewLinkButton.setAttribute(
-    "title",
-    "Copy preview link to this theme"
-  );
-  rightCurlyBracket.classList.add("right-curly-bracket");
-  rightCurlyBracket.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="119" height="616" viewBox="0 0 119 616" fill="none">
-  <path d="M8 608C36.4434 608 59.5 578.153 59.5 541.333V418.85C59.5 402.543 59.5 394.39 60.924 386.717C62.1857 379.917 64.2663 373.413 67.0885 367.447C70.2738 360.72 74.7285 354.953 83.6355 343.423L111 308L83.6355 272.577C74.7285 261.047 70.2738 255.28 67.0885 248.553C64.2663 242.587 62.1857 236.085 60.924 229.282C59.5 221.61 59.5 213.457 59.5 197.151V74.6667C59.5 37.8477 36.4434 8 8 8" stroke="black" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
-  copyPreviewLinkButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="647" height="788" viewBox="0 0 647 788" fill="none">
-  <path d="M451.571 21H194.429C113.616 21 73.2102 21 48.1053 45.2452C23 69.49 23 108.512 23 186.556V600.444C23 678.487 23 717.509 48.1053 741.754C73.2102 766 113.616 766 194.429 766H451.571C532.383 766 572.789 766 597.894 741.754C623 717.509 623 678.487 623 600.444V186.556C623 108.512 623 69.49 597.894 45.2452C572.789 21 532.383 21 451.571 21ZM194.587 21.4582V115.293C194.587 149.843 232.915 177.85 280.196 177.85H365.804C413.086 177.85 451.413 149.843 451.413 115.293V21.4582M405.125 463.5C405.125 485.181 396.512 505.975 381.181 521.306C365.85 536.637 345.056 545.25 323.375 545.25C301.694 545.25 280.9 536.637 265.569 521.306C250.238 505.975 241.625 485.181 241.625 463.5C241.625 441.819 250.238 421.025 265.569 405.694C280.9 390.363 301.694 381.75 323.375 381.75C345.056 381.75 365.85 390.363 381.181 405.694C396.512 421.025 405.125 441.819 405.125 463.5ZM364.25 463.5C364.25 474.341 359.944 484.737 352.278 492.403C344.612 500.069 334.216 504.375 323.375 504.375C312.534 504.375 302.138 500.069 294.472 492.403C286.806 484.737 282.5 474.341 282.5 463.5C282.5 452.659 286.806 442.263 294.472 434.597C302.138 426.931 312.534 422.625 323.375 422.625C334.216 422.625 344.612 426.931 352.278 434.597C359.944 442.263 364.25 452.659 364.25 463.5Z" stroke="#323232" stroke-width="45" stroke-linejoin="round"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M405.125 463.5C405.125 485.181 396.512 505.975 381.181 521.306C365.85 536.637 345.056 545.25 323.375 545.25C301.694 545.25 280.9 536.637 265.569 521.306C250.238 505.975 241.625 485.181 241.625 463.5C241.625 441.819 250.238 421.025 265.569 405.694C280.9 390.363 301.694 381.75 323.375 381.75C345.056 381.75 365.85 390.363 381.181 405.694C396.512 421.025 405.125 441.819 405.125 463.5ZM364.25 463.5C364.25 474.341 359.944 484.737 352.278 492.403C344.612 500.069 334.216 504.375 323.375 504.375C312.534 504.375 302.138 500.069 294.472 492.403C286.806 484.737 282.5 474.341 282.5 463.5C282.5 452.659 286.806 442.263 294.472 434.597C302.138 426.931 312.534 422.625 323.375 422.625C334.216 422.625 344.612 426.931 352.278 434.597C359.944 442.263 364.25 452.659 364.25 463.5Z" fill="#323232"/>
-  </svg>`;
-
-  rightCurlyBracket.append(copyPreviewLinkButton);
-  const bracketPath = rightCurlyBracket.querySelector("path");
-  const bracketLength = bracketPath.getTotalLength();
-
-  themeDetailsLeftContent.addEventListener("mouseenter", () => {
-    bracketPath.classList.add("visible");
-    copyPreviewLinkButton.classList.add("visible");
-  });
-
   content.appendChild(title);
   content.appendChild(themeDetailsContainer);
   themeDetailsContainer.appendChild(themeDetailsLeft);
   themeDetailsContainer.appendChild(themeDetailsMiddle);
   themeDetailsContainer.appendChild(themeDetailsRight);
   themeDetailsLeft.appendChild(themeDetailsLeftContent);
-  themeDetailsLeft.appendChild(rightCurlyBracket);
   themeDetailsLeftContent.appendChild(themeName);
   themeDetailsLeftContent.appendChild(themeVersion);
   themeDetailsLeftContent.appendChild(themeId);
@@ -395,34 +369,6 @@ if (!Shopify.theme) {
     themeDetailsMiddle.appendChild(themeDetails);
   }
 
-  const copyTextToClipboard = (el, textToCopy, toastText = "Copied!") => {
-    const toast = document.createElement("div");
-    toast.classList.add("toast-message");
-    toast.innerHTML = toastText;
-
-    // Copy the text to the clipboard
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        el.appendChild(toast);
-        // Remove the toast message after a short delay
-        setTimeout(() => {
-          el.removeChild(toast);
-        }, 1000);
-      })
-      .catch((error) => {
-        console.error("Failed to copy text: ", error);
-      });
-  };
-
-  copyPreviewLinkButton.addEventListener("click", async () => {
-    copyTextToClipboard(
-      copyPreviewLinkButton,
-      `https://${window.Shopify.shop}/?preview_theme_id=${Shopify.theme.id}`,
-      "Copied theme preview link!"
-    );
-  });
-
   // add GitHub link to bottom right of the dialog
   const githubSvg = `<svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`;
 
@@ -499,81 +445,12 @@ if (!Shopify.theme) {
         margin-top: 0;
       }
 
-      .right-curly-bracket {
-        position: relative;
-        display: flex;
-        align-items: center;
-        height: 120px;
-      }
-
-      .right-curly-bracket > svg {
-        height: 100%;
-        width: auto;
-      }
-
-      .right-curly-bracket > svg path {
-        opacity: 0;
-      }
-
-      .right-curly-bracket svg path.visible {
-        stroke-dasharray: ${bracketLength};
-        stroke-dashoffset: ${bracketLength};
-        animation: draw 0.75s ease-in-out forwards;
-      }
-
-      @keyframes draw {
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-
-      .toast-message {
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-        position: absolute;
-        bottom: 1rem;
-        right: -300%;
-        background: darkslategrey;
-        padding: 0.25em;
-        border-radius: 6px;
-        animation-name: slide-up;
-        animation-duration: 0.4s;
-      }
-
-      /* keyframe declaration */
-      @keyframes slide-up {
-        from {
-          opacity: 0;
-          bottom: -3rem;
-        }
-        to {
-          opacity: 1;
-          bottom: 1rem;
-        }
-      }
-
-      .clipboard-button {
-        border: none;
-        padding: 0;
-        position: relative;
-      }
-
-      .copy-preview-link {
-        display: none;
-        margin-left: 1em;
-      }
-
-      .copy-preview-link.visible {
-        display: block;
-      }
 
       .social-icon + .social-icon {
         margin-left: 1em;
       }
 
-      .clipboard-icon, .copy-preview-link svg, .social-icon svg {
+      .social-icon svg {
         width: 3rem;
         max-width: 35px;
         height: auto;
@@ -585,12 +462,7 @@ if (!Shopify.theme) {
         fill: black;
       }
 
-      .clipboard-button:focus {
-        outline: 1px solid currentColor;
-        outline-offset: 2px;
-      }
-
-      .clipboard-button:hover, .social-icon:hover svg {
+      .social-icon:hover svg {
         transform: scale(1.1);
       }
 
