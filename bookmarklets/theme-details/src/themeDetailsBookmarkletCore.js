@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.1";
+  const bookmarketVersion = "0.1.2";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -343,37 +343,6 @@ if (!Shopify.theme) {
           " - have they considered updating their theme?";
       }
       themeDetailsMiddle.appendChild(currentVersion);
-    }
-
-    if (themes[themeLower]["newVersion"] == "NA") {
-      const newVersion = document.createElement("p");
-      newVersion.innerHTML = `<strong>2.0?:</strong> This theme is not compatible with 2.0`;
-      themeDetailsMiddle.appendChild(newVersion);
-    } else if (themes[themeLower]["newVersion"]) {
-      const newVersion = document.createElement("p");
-      newVersion.innerHTML = `<strong>JSON Templates?:</strong> This has been a JSON-template theme since version ${themes[themeLower].newVersion}`;
-      const newVersionNumbers = themes[themeLower].newVersion.split(".");
-      const installedVersionNumbers = Shopify.theme.schema_version.split(".");
-      let isUpdateAvailable = false;
-      for (let i = 0; i < newVersionNumbers.length; i++) {
-        const newNumber = parseInt(newVersionNumbers[i]);
-        const installedNumber = parseInt(installedVersionNumbers[i]);
-        if (newNumber > installedNumber) {
-          isUpdateAvailable = true;
-          break;
-        } else if (newNumber < installedNumber) {
-          break;
-        }
-      }
-      if (isUpdateAvailable) {
-        newVersion.innerHTML +=
-          " - have they considered updating to a new version?";
-      }
-      themeDetailsMiddle.appendChild(newVersion);
-    } else {
-      const newVersion = document.createElement("p");
-      newVersion.innerHTML = `<strong>2.0?:</strong> We don't know when this became a JSON-template theme - <a style="color:blue; text-decoration:underline;" href="https://docs.google.com/forms/d/e/1FAIpQLSc1ScOu70hiYm9gdTQfNMCxZBM-O15k-T-o0xBxGyvIxKcN6g/viewform?usp=sf_link" target="_blank">please let us know</a>`;
-      themeDetailsMiddle.appendChild(newVersion);
     }
 
     if (themes[themeLower]["supportDocs"]) {
