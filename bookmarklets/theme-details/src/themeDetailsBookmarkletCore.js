@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.0";
+  const bookmarketVersion = "0.1.1";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -139,11 +139,8 @@ if (!Shopify.theme) {
 
   /**
    * Displays a message to the user if a new version of the bookmarklet is available.
-   * This message includes a link to the Guru card with the code and instructions
-   * to update the bookmarklet.
    * This function is called at the end of this file.
    * @returns {boolean} true if a new version is available, false if not.
-   * @see https://app.getguru.com/card/igjRR5ET/Theme-Details-Bookmarklet
    */
   const displayUpdateMessage = async () => {
     let [newAvailable, customMessageJson] = await compareBookmarkletVersion();
@@ -235,8 +232,7 @@ if (!Shopify.theme) {
       spoofingWarning.style.margin = "0 auto 2em";
       spoofingWarning.innerHTML = `<strong>⚠️ Warning: Pagespeed Spoofing Script Detected!</strong><br>
         This store appears to be using a script that artificially manipulates pagespeed metrics. 
-        This can cause performance issues and inaccurate analytics data.<br>
-        <a style="color:#721c24; text-decoration:underline;" href="https://app.getguru.com/card/T8ARxjqc/Developer-Support-Siae-Speed-Optimization-Workaround" target="_blank">See our Guru card for handling this issue</a>.`;
+        This can cause performance issues and inaccurate analytics data.`;
       content.prepend(spoofingWarning);
     }
 
@@ -458,75 +454,22 @@ if (!Shopify.theme) {
     );
   });
 
-  // copy to clipboard
-  const clipboardIcon = document.createElement("button");
-  clipboardIcon.classList.add("clipboard-button");
-  clipboardIcon.style.background = "none";
-  clipboardIcon.setAttribute("title", "Copy to clipboard for Slack");
-  clipboardIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="clipboard-icon" width="647" height="788" viewBox="0 0 647 788" fill="none">
-  <g clip-path="url(#clip0_101_2)">
-  <path d="M451.571 21C532.383 21 572.789 21 597.894 45.2452C623 69.49 623 108.512 623 186.556V600.444C623 678.487 623 717.509 597.894 741.754C572.789 766 532.383 766 451.571 766H194.429C113.616 766 73.2102 766 48.1053 741.754C23 717.509 23 678.487 23 600.444V186.556C23 108.512 23 69.49 48.1053 45.2452C73.2102 21 113.616 21 194.429 21H451.571Z" stroke="#323232" stroke-width="45" stroke-linejoin="round"/>
-  <path d="M194.587 21.4582V115.293C194.587 149.843 232.915 177.85 280.196 177.85H365.804C413.086 177.85 451.413 149.843 451.413 115.293V21.4582" stroke="#323232" stroke-width="45" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M205.815 519.264C205.815 541.686 186.848 560.003 163.63 560.003C140.412 560.003 121.446 541.686 121.446 519.264C121.446 496.841 140.412 478.524 163.63 478.524H205.815V519.264Z" fill="#E01E5A"/>
-  <path d="M227.071 519.264C227.071 496.841 246.038 478.524 269.256 478.524C292.474 478.524 311.441 496.841 311.441 519.264V621.27C311.441 643.693 292.474 662.01 269.256 662.01C246.038 662.01 227.071 643.693 227.071 621.27V519.264Z" fill="#E01E5A"/>
-  <path d="M269.256 355.673C246.038 355.673 227.071 337.356 227.071 314.934C227.071 292.511 246.038 274.194 269.256 274.194C292.474 274.194 311.441 292.511 311.441 314.934V355.673H269.256Z" fill="#36C5F0"/>
-  <path d="M269.256 376.201C292.474 376.201 311.441 394.518 311.441 416.941C311.441 439.363 292.474 457.68 269.256 457.68H163.63C140.412 457.68 121.446 439.363 121.446 416.941C121.446 394.518 140.412 376.201 163.63 376.201H269.256Z" fill="#36C5F0"/>
-  <path d="M438.649 416.941C438.649 394.518 457.616 376.201 480.834 376.201C504.052 376.201 523.019 394.518 523.019 416.941C523.019 439.363 504.052 457.68 480.834 457.68H438.649V416.941Z" fill="#2EB67D"/>
-  <path d="M417.393 416.941C417.393 439.363 398.427 457.68 375.209 457.68C351.991 457.68 333.024 439.363 333.024 416.941V314.934C333.024 292.511 351.991 274.194 375.209 274.194C398.427 274.194 417.393 292.511 417.393 314.934V416.941Z" fill="#2EB67D"/>
-  <path d="M375.209 580.531C398.427 580.531 417.394 598.848 417.394 621.27C417.394 643.693 398.427 662.01 375.209 662.01C351.991 662.01 333.024 643.693 333.024 621.27V580.531H375.209Z" fill="#ECB22E"/>
-  <path d="M375.209 560.003C351.991 560.003 333.024 541.686 333.024 519.264C333.024 496.841 351.991 478.524 375.209 478.524H480.834C504.052 478.524 523.019 496.841 523.019 519.264C523.019 541.686 504.052 560.003 480.834 560.003H375.209Z" fill="#ECB22E"/>
-  </g>
-  <defs>
-  <clipPath id="clip0_101_2">
-  <rect width="647" height="788" fill="white"/>
-  </clipPath>
-  </defs>
-  </svg>`;
-
-  // Add event listener to copy text to clipboard
-  clipboardIcon.addEventListener("click", async () => {
-    copyTextToClipboard(
-      clipboardIcon,
-      `*Theme Version:* ${Shopify.theme.schema_name} (${
-        Shopify.theme.schema_version
-      })${
-        // account for missing theme dev name
-        themes[themeLower]
-          ? `\n*Supported by:* ${themes[themeLower].developer}`
-          : ""
-      }\n*Theme ID:* ${Shopify.theme.id}
-      }\n*Storefront URL:* https://${window.Shopify.shop}\n`,
-      "Copied details for Slack!"
-    );
-  });
-
-  content.appendChild(clipboardIcon);
-
-  // add github and guru svgs to bottom
-  // right of the dialog
+  // add GitHub link to bottom right of the dialog
   const githubSvg = `<svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`;
-  const guruSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.31 162.01"><defs><style>.d{fill:#fff;}.e{fill:#080b0e;}</style></defs><g id="a"/><g id="b"><g id="c"><g><path class="e" d="M162.28,96.29c.57,20.21-8.19,35.32-25.42,45.02-23.91,13.45-49.54,21.53-77.3,20.64-15.64-.5-28.15-8.01-36.35-21.09C7.51,115.82-.94,88.36,.08,58.64c.54-15.6,8.6-27.88,21.78-35.94C46.67,7.52,73.69-.9,102.98,.08c15.87,.53,28.12,8.76,36.46,22.05,14.21,22.64,20.84,47.73,22.84,74.16Z"/><g><path class="d" d="M92.34,111.57c-6.26,2.28-12.96,2.67-18.88,1.08-14.71-3.95-25.39-17.48-25.39-32.16,0-11.7,5.26-19.36,9.68-23.73,6.08-6.01,14.53-9.58,22.67-9.58,.1,0,.21,0,.31,0,15.52,.17,25.35,11.89,25.44,12,1.35,1.66,3.78,1.9,5.43,.56,1.65-1.34,1.91-3.78,.56-5.43-.49-.6-12.13-14.64-31.35-14.85-10.38-.06-20.79,4.19-28.49,11.8-7.72,7.63-11.97,18.01-11.97,29.22,0,18.11,13.08,34.78,31.11,39.62,3.05,.82,6.25,1.22,9.5,1.22,4.68,0,9.47-.84,14.04-2.51,11.87-4.34,23.47-15.76,23.05-28.96-2.62,1.92-5.47,3.67-8.47,5.33-2.31,7.25-9.61,13.6-17.23,16.38Z"/><path class="d" d="M121.5,71.35c-.07,.07-3.39,3.63-8.36,7.2-5.16-5.03-13.38-7.42-19.32-7.42-4.87,0-8.59,1.28-11.07,3.79-1.95,1.98-2.95,4.57-2.91,7.49,.08,5.25,3.85,10.93,14.16,11.16,5.75,.14,11.38-1.72,16.29-4.24,3.43-1.74,5.9-3.48,7.01-4.27,5.76-4.07,9.56-8.13,9.88-8.48,1.45-1.57,1.35-4.01-.22-5.46-1.56-1.44-4-1.35-5.46,.21Zm-27.34,14.5c-2.99-.07-6.56-.74-6.6-3.56-.02-1.23,.52-1.78,.69-1.95,.55-.56,2-1.49,5.57-1.49,3.78,0,8.83,1.45,12.33,3.95-3.76,1.85-7.81,3.14-11.99,3.05Z"/></g></g></g></g></svg>`;
 
   const githubLink = document.createElement("a");
   githubLink.classList.add("social-icon");
-  githubLink.href = "https://www.github.com/Shopify/theme-details-bookmarklet";
+  githubLink.href =
+    "https://github.com/BrenLong/theme-support-toolkit/tree/main/bookmarklets/theme-details";
   githubLink.target = "_blank";
   githubLink.innerHTML = githubSvg;
 
-  const guruLink = document.createElement("a");
-  guruLink.classList.add("social-icon");
-  guruLink.href =
-    "https://app.getguru.com/card/igjRR5ET/Theme-Details-Bookmarklet";
-  guruLink.target = "_blank";
-  guruLink.innerHTML = guruSvg;
-
-  const githubGuruContainer = document.createElement("div");
-  githubGuruContainer.style.float = "right";
-  githubGuruContainer.style.marginTop = "1em";
-  githubGuruContainer.style.marginRight = "1em";
-  githubGuruContainer.appendChild(githubLink);
-  githubGuruContainer.appendChild(guruLink);
-  content.appendChild(githubGuruContainer);
+  const githubContainer = document.createElement("div");
+  githubContainer.style.float = "right";
+  githubContainer.style.marginTop = "1em";
+  githubContainer.style.marginRight = "1em";
+  githubContainer.appendChild(githubLink);
+  content.appendChild(githubContainer);
 
   // Css rules
   const bookmarkletStyle = document.createElement("style");
