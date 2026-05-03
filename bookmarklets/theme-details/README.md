@@ -2,11 +2,11 @@
 
 A locally maintained version of Stephen Dawson's Theme Details Bookmarklet for Shopify storefronts.
 
-When run on a Shopify storefront, the bookmarklet opens a modal that shows the active theme details from `Shopify.theme`, including theme name, version, theme ID, known developer, support docs, and release notes.
+When run on a Shopify storefront, the bookmarklet opens a modal that shows the active theme details from `Shopify.theme`, including theme name, version, theme ID, known developer, and support docs.
 
 ## Current toolkit version
 
-`0.1.4`
+`0.1.5`
 
 The installed bookmarklet checks this repo's `version.json` file for the latest version and will show an update message when the installed version is behind.
 

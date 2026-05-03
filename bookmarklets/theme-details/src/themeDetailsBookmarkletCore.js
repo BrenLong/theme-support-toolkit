@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.4";
+  const bookmarketVersion = "0.1.5";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -347,20 +347,6 @@ if (!Shopify.theme) {
       themeDetailsMiddle.appendChild(supportDocs);
     }
 
-    if (themes[themeLower]["releaseNotes"]) {
-      const releaseNotes = document.createElement("p");
-      releaseNotes.innerHTML = `<strong>Release notes:</strong> <a style="color:blue; text-decoration:underline;" href="${themes[themeLower].releaseNotes}" target="_blank">Click here for the theme's release notes</a>`;
-      themeDetailsMiddle.appendChild(releaseNotes);
-    } else {
-      const releaseNotes = document.createElement("p");
-      if (themes[themeLower]["sunset"] == true) {
-        releaseNotes.innerHTML = `<strong>Release notes:</strong> This theme has been sunset and may no longer have public release notes.`;
-      } else {
-        releaseNotes.innerHTML = `<strong>Release notes:</strong> We don't have a record of the release notes for this theme - <a style="color:blue; text-decoration:underline;" href="https://docs.google.com/forms/d/e/1FAIpQLSc1ScOu70hiYm9gdTQfNMCxZBM-O15k-T-o0xBxGyvIxKcN6g/viewform?usp=sf_link" target="_blank">please let us know</a>`;
-      }
-      themeDetailsMiddle.appendChild(releaseNotes);
-    }
-
     if (themes[themeLower]["customThemeNote"]) {
       const customThemeMessage = document.createElement("p");
       customThemeMessage.classList.add("custom-theme-note");
@@ -439,11 +425,13 @@ if (!Shopify.theme) {
       to ensure the text color is not overwritten
       by the theme
       */
-      div.theme-details-grid > div > p {
-        color: #000000;
+      dialog.theme-details-dialog p,
+      dialog.theme-details-dialog div.theme-details-grid > div > p,
+      dialog.theme-details-dialog .boomr-info p {
+        color: #000000 !important;
         margin: 0 0 10px 0;
         font-size: 16px;
-        font-weight: regular;
+        font-weight: normal;
         padding: 0;
       }
 
