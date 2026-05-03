@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.7";
+  const bookmarketVersion = "0.1.8";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -89,6 +89,12 @@ if (!Shopify.theme) {
   close.innerHTML = "X";
   close.addEventListener("click", () => {
     dialog.close();
+  });
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
   });
 
   const content = document.createElement("div");
