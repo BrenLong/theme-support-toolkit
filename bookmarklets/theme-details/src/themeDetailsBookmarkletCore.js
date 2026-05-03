@@ -12,7 +12,7 @@ if (!Shopify.theme) {
   // bookmarkletVersion should be updated when new themes are
   // added to the theme.json or when there is a
   // more significant update
-  const bookmarketVersion = "0.1.5";
+  const bookmarketVersion = "0.1.6";
   const bookmarkletVersionUrl =
     "https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/bookmarklets/theme-details/version.json";
   const defaultCustomMessage = {
@@ -71,14 +71,18 @@ if (!Shopify.theme) {
 
   const dialog = document.createElement("dialog");
   dialog.classList.add("theme-details-dialog");
-  dialog.style.maxWidth = "1600px";
-  dialog.style.width = "95%";
-  dialog.style.borderRadius = "5px";
+  dialog.style.maxWidth = "980px";
+  dialog.style.width = "min(92vw, 980px)";
+  dialog.style.borderRadius = "18px";
   dialog.style.zIndex = "999999";
   dialog.style.position = "fixed";
   dialog.style.top = "50%";
   dialog.style.left = "50%";
   dialog.style.transform = "translate(-50%, -50%)";
+  dialog.style.border = "0";
+  dialog.style.padding = "0";
+  dialog.style.overflow = "hidden";
+  dialog.style.boxShadow = "0 24px 80px rgba(15, 23, 42, 0.28)";
 
   const close = document.createElement("button");
   close.classList.add("btn-close");
@@ -88,9 +92,7 @@ if (!Shopify.theme) {
   });
 
   const content = document.createElement("div");
-  content.style.padding = "20px";
-  content.style.backgroundColor = "#fff";
-  content.style.borderRadius = "5px";
+  content.classList.add("theme-details-content");
 
   dialog.appendChild(close);
   dialog.appendChild(content);
@@ -264,7 +266,7 @@ if (!Shopify.theme) {
 
   const title = document.createElement("h1");
   title.classList.add("theme-details-title");
-  title.innerHTML = `Theme details (v${bookmarketVersion})`;
+  title.innerHTML = `Theme details <span>v${bookmarketVersion}</span>`;
 
   const themeDetailsContainer = document.createElement("div");
   themeDetailsContainer.classList.add("theme-details-grid");
@@ -274,7 +276,7 @@ if (!Shopify.theme) {
   const themeDetailsLeftContent = document.createElement("div");
 
   const themeDetailsMiddle = document.createElement("div");
-  const themeDetailsRight = document.createElement("div");
+  themeDetailsMiddle.classList.add("theme-details-main");
 
   const themeName = document.createElement("p");
   themeName.innerHTML = `<strong>Theme name:</strong> ${Shopify.theme.schema_name}`;
@@ -289,7 +291,6 @@ if (!Shopify.theme) {
   content.appendChild(themeDetailsContainer);
   themeDetailsContainer.appendChild(themeDetailsLeft);
   themeDetailsContainer.appendChild(themeDetailsMiddle);
-  themeDetailsContainer.appendChild(themeDetailsRight);
   themeDetailsLeft.appendChild(themeDetailsLeftContent);
   themeDetailsLeftContent.appendChild(themeName);
   themeDetailsLeftContent.appendChild(themeVersion);
@@ -380,99 +381,193 @@ if (!Shopify.theme) {
   githubLink.innerHTML = githubSvg;
 
   const githubContainer = document.createElement("div");
-  githubContainer.style.float = "right";
-  githubContainer.style.marginTop = "1em";
-  githubContainer.style.marginRight = "1em";
+  githubContainer.classList.add("theme-details-footer");
   githubContainer.appendChild(githubLink);
   content.appendChild(githubContainer);
 
   // Css rules
   const bookmarkletStyle = document.createElement("style");
   bookmarkletStyle.innerText = `
-      dialog * {
+      dialog.theme-details-dialog,
+      dialog.theme-details-dialog * {
+        box-sizing: border-box;
         direction: ltr;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+      }
+
+      dialog.theme-details-dialog::backdrop {
+        background: rgba(15, 23, 42, 0.48);
+        backdrop-filter: blur(3px);
+      }
+
+      dialog.theme-details-dialog {
+        background: #ffffff !important;
+        color: #111827 !important;
+      }
+
+      .theme-details-content {
+        padding: 28px;
+        background:
+          radial-gradient(circle at top left, rgba(89, 81, 255, 0.10), transparent 34%),
+          linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 18px;
       }
 
       .btn-close {
         position: absolute;
-        color: #fff;
-        top: 0;
-        right: 0;
-        padding: 10px 15px;
-        background-color: red;
-        border: none;
-        border-radius: 5px 0px 5px 5px;
-        max-width: 40px;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #475569;
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
         z-index: 999999;
+        transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+      }
+
+      .btn-close:hover {
+        color: #111827;
+        background: #ffffff;
+        transform: scale(1.04);
+      }
+
+      .theme-details-title {
+        margin: 0 44px 24px 0;
+        padding: 0;
+        font-size: 28px;
+        line-height: 1.2;
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        color: #0f172a !important;
+      }
+
+      .theme-details-title span {
+        display: inline-flex;
+        vertical-align: middle;
+        margin-left: 8px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: #eef2ff;
+        color: #4f46e5 !important;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
       }
 
       .theme-details-grid {
         display: grid;
-        grid-template-columns: 2fr 3fr 2fr;
-        gap: 2rem;
+        grid-template-columns: minmax(230px, 0.9fr) minmax(320px, 1.4fr);
+        gap: 18px;
+        align-items: start;
       }
 
-      .theme-details-title {
-        margin: 0 0 20px 0;
-        padding: 0;
-        font-size: 24px;
-        font-weight: normal;
-        color: rgba(0, 0, 0, 1);
-      }
-
-      /*
-      This level of specificity is needed
-      to ensure the text color is not overwritten
-      by the theme
-      */
-      dialog.theme-details-dialog p,
-      dialog.theme-details-dialog div.theme-details-grid > div > p,
-      dialog.theme-details-dialog .boomr-info p {
-        color: #000000 !important;
-        margin: 0 0 10px 0;
-        font-size: 16px;
-        font-weight: normal;
-        padding: 0;
+      .boomr-info,
+      .theme-details-main {
+        min-height: 100%;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.90);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
       }
 
       .boomr-info {
+        display: block;
+      }
+
+      dialog.theme-details-dialog p,
+      dialog.theme-details-dialog div.theme-details-grid > div > p,
+      dialog.theme-details-dialog .boomr-info p {
+        color: #111827 !important;
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        line-height: 1.55;
+        font-weight: 450;
+      }
+
+      dialog.theme-details-dialog p + p {
+        margin-top: 12px;
+      }
+
+      dialog.theme-details-dialog p strong {
+        display: block;
+        margin-bottom: 2px;
+        color: #64748b !important;
+        font-size: 11px;
+        line-height: 1.3;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      dialog.theme-details-dialog a {
+        color: #4f46e5 !important;
+        text-decoration: none !important;
+        font-weight: 650;
+      }
+
+      dialog.theme-details-dialog a:hover {
+        color: #3730a3 !important;
+        text-decoration: underline !important;
+      }
+
+      .custom-theme-note {
+        grid-column: 1 / -1;
+        margin-top: 18px !important;
+        padding: 14px 16px !important;
+        border: 1px solid #fde68a;
+        border-radius: 14px;
+        background: #fffbeb;
+        color: #78350f !important;
+        box-shadow: 0 8px 24px rgba(146, 64, 14, 0.08);
+      }
+
+      .custom-theme-note strong {
+        color: #92400e !important;
+      }
+
+      .theme-details-footer {
         display: flex;
+        justify-content: flex-end;
+        margin-top: 18px;
       }
 
-      .boomr-info p {
-        margin-top: 1em;
-      }
-
-      .boomr-info p:nth-child(1) {
-        margin-top: 0;
-      }
-
-
-      .social-icon + .social-icon {
-        margin-left: 1em;
+      .social-icon {
+        display: inline-flex;
+        width: 36px;
+        height: 36px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.90);
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
       }
 
       .social-icon svg {
-        width: 3rem;
-        max-width: 35px;
+        width: 18px;
+        max-width: 18px;
         height: auto;
-        transition: transform 0.2s ease;
-        cursor: pointer;
-      }
-
-      .social-icon svg {
-        fill: black;
+        fill: #475569;
+        transition: transform 0.16s ease, fill 0.16s ease;
       }
 
       .social-icon:hover svg {
-        transform: scale(1.1);
+        fill: #111827;
+        transform: scale(1.08);
       }
 
-      .social-icon:hover svg {
-        fill: currentColor;
-      }
-
-      /* Spinner animation */
       .loading-animation {
         position: relative;
       }
@@ -488,32 +583,27 @@ if (!Shopify.theme) {
         margin-top: -20px;
         margin-left: -20px;
         border-radius: 50%;
-        border: 2px solid #ccc;
-        border-top-color: #333;
+        border: 2px solid #cbd5e1;
+        border-top-color: #4f46e5;
         animation: loading-animation 1s linear infinite;
       }
 
-      .custom-theme-note {
-        border: 1px solid #9e4848;
-        border-radius: 10px;
-        padding: 0.25em;
-        background-color: #ffff86;
-        text-align: center;
-        grid-column: 2;
-      }
-
       @keyframes loading-animation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
-      @media only screen and (max-width : 750px) {
+      @media only screen and (max-width: 750px) {
+        .theme-details-content {
+          padding: 22px;
+        }
+
+        .theme-details-title {
+          font-size: 24px;
+        }
+
         .theme-details-grid {
-          grid-template-columns: auto;
+          grid-template-columns: 1fr;
         }
       }
     `;

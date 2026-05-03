@@ -1,6 +1,6 @@
 {
   "name": "@brenlong/theme-details-bookmarklet",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A bookmarklet to identify Shopify storefront themes and provide links to support docs.",
   "main": "themeDetailsBookmarklet.min.js",
   "scripts": {

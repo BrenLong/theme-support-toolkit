@@ -6,7 +6,7 @@ When run on a Shopify storefront, the bookmarklet opens a modal that shows the a
 
 ## Current toolkit version
 
-`0.1.5`
+`0.1.6`
 
 The installed bookmarklet checks this repo's `version.json` file for the latest version and will show an update message when the installed version is behind.
 
