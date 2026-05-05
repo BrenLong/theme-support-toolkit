@@ -25,22 +25,13 @@ If a userscript does not appear to be working after installation:
 2. Reload Shopify Admin and any open Theme Editor tabs.
 3. Clear your browser cache for Shopify Admin and Online Store Web, then reload again.
 4. Log out of Shopify Admin and log back in.
-5. If the issue still needs attention, contact Brendan on Slack with the script name, browser, userscript manager, and what happened.
+5. If the issue still needs attention, contact @BrenLong on Slack with the script name, browser, userscript manager, and what happened.
 
 ## Updating
 
-Shared userscripts should use a metadata-only update file:
+By default, OrangeMonkey automatically checks installed scripts for updates every day. You can also manually use the "Check for updates" button after the script is installed.
 
-- `@updateURL` points to the matching `.meta.js` file.
-- `@downloadURL` points to the full `.user.js` file.
-- `@version` must be bumped in both files whenever the script changes.
-
-For example, the Theme Editor inspector script uses:
-
-```javascript
-// @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.meta.js
-// @downloadURL  https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.user.js
-```
+When an update is available, OrangeMonkey checks the script metadata and downloads the latest version from GitHub.
 
 ## Notes
 
