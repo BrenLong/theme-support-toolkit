@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Shopify Theme Editor - Preview Inspector Default Off
 // @namespace    theme-support-toolkit
-// @version      1.1.2
+// @version      1.1.3
 // @description  Defaults the Shopify Theme Editor Preview inspector to off by setting previewInspectorEnabled=false before Online Store Web initializes.
 // @author       Brendan Long
+// @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.meta.js
 // @downloadURL  https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.user.js
-// @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.user.js
 // @match        https://admin.shopify.com/*
 // @match        https://admin.shop.dev/*
 // @match        https://*.myshopify.com/admin*
