@@ -35,6 +35,4 @@ When an update is available, OrangeMonkey checks the script metadata and downloa
 
 ## Notes
 
-The Shopify Theme Editor runs inside an embedded Online Store Web iframe, usually on `online-store-web.shopifyapps.com`. Userscripts that change Theme Editor behaviour need to match that iframe origin, not only `admin.shopify.com`.
-
 These scripts are intended for local browser workflow convenience only. They do not modify merchant theme code, storefront code, or Shopify platform behaviour.
