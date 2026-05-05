@@ -4,7 +4,7 @@ Local browser userscripts for Theme Support workflow improvements.
 
 ## Install
 
-1. Install a userscript manager such as OrangeMonkey, Tampermonkey, or Violentmonkey.
+1. Install a userscript manager. [OrangeMonkey](https://kepler.shopify.io/services/orangemonkey) is the current Kepler-approved userscript manager as of 05/05/2026. Tampermonkey, Violentmonkey, or similar userscript managers may also work.
 2. Open the raw GitHub `.user.js` install link for the script you want to use.
 3. Accept the install prompt from your userscript manager.
 4. Reload affected Shopify Admin or Theme Editor tabs.

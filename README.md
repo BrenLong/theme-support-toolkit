@@ -44,7 +44,7 @@ To share this script with someone else, send them the install link above. They s
 
 ## Install a userscript
 
-1. Install a userscript manager such as OrangeMonkey, Tampermonkey, or Violentmonkey.
+1. Install a userscript manager. [OrangeMonkey](https://kepler.shopify.io/services/orangemonkey) is the current Kepler-approved userscript manager as of 05/05/2026. Tampermonkey, Violentmonkey, or similar userscript managers may also work.
 2. Open the raw `.user.js` install link for the tool you want to use.
 3. Accept the install prompt from your userscript manager.
 4. Reload any already-open Shopify Admin or Theme Editor tabs.
