@@ -81,7 +81,7 @@ The initial scope is browser tools and userscripts. Possible future additions:
 
 - Theme support diagnostics for DevTools
 - Reusable troubleshooting checklists
-- Theme customization recipes
+- Theme customization snippets
 - Known issue notes
 
 For now, the goal is to keep the repository small, useful, and easy to maintain.
