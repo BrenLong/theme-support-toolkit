@@ -2,7 +2,7 @@
 
 Local browser userscripts for Theme Support workflow improvements.
 
-New to userscripts? The generic install steps (which manager to use, how to install, how updates work) live in the [root README](../README.md#installing-a-userscript). This page covers the individual scripts, per-script notes, troubleshooting, and the release process.
+New to userscripts? The generic install steps (which manager to use, how to install, how updates work) live in the [root README](../README.md#installing-a-userscript). This page covers the individual scripts, per-script notes, troubleshooting, and my own maintainer notes.
 
 ## Available scripts
 
@@ -36,15 +36,13 @@ If a userscript does not appear to be working after installation:
 4. Log out and back in if the tab relies on an authenticated session.
 5. If it still needs attention, contact @BrenLong on Slack with the script name, browser, userscript manager, and what happened.
 
-## Updating and releasing
+## Maintainer notes
 
-By default, OrangeMonkey checks installed scripts for updates daily; you can also use its "Check for updates" button. When the remote `@version` is higher than the installed one, it downloads the latest `.user.js` from GitHub.
+Just for me, since I'm the one who updates these. To ship a change:
 
-To ship an update:
-
-1. Make your change in the `.user.js` file.
-2. Bump `@version` in **both** the `.user.js` and its matching `.meta.js` (the manager compares against the `.meta.js`).
-3. Commit and push. Installed copies pick up the new version on their next update check.
+1. Edit the `.user.js`.
+2. Bump `@version` in both the `.user.js` and its matching `.meta.js` (userscript managers compare against the `.meta.js`).
+3. Commit and push — installed copies update on their next check.
 
 ## Notes
 
