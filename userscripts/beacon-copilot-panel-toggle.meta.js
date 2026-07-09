@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Beacon - Copilot Panel Toggle
 // @namespace    theme-support-toolkit
-// @version      1.9.0
+// @version      1.9.1
 // @description  Hides Beacon's Copilot (suggested response) sidebar by default to widen the chat panel, with a floating button to show/hide it. Remembers your last choice.
 // @author       Brendan Long
 // @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/beacon-copilot-panel-toggle.meta.js

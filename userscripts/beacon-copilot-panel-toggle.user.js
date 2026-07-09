@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Beacon - Copilot Panel Toggle
 // @namespace    theme-support-toolkit
-// @version      1.9.0
+// @version      1.9.1
 // @description  Hides Beacon's Copilot (suggested response) sidebar by default to widen the chat panel, with a floating button to show/hide it. Remembers your last choice.
 // @author       Brendan Long
 // @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/beacon-copilot-panel-toggle.meta.js
@@ -254,10 +254,16 @@
         ? anchor.getBoundingClientRect()
         : null;
     const shown = !!toggleButton && toggleButton.style.display !== 'none';
+    // Only reserve room beside the take-over button when the Copilot column is
+    // actually hidden -- that's the only time our button sits in the corner next
+    // to it. When Copilot is shown, our button is over the Copilot column, so
+    // reserving space would needlessly shove the take-over button out of its
+    // normal right-hand position.
+    const columnHidden = isHidden() && !escalationInHiddenColumn();
 
     // Reserve space to the right of the take-over button for our corner button.
     if (anchor) {
-      if (anchorRect && shown) {
+      if (anchorRect && shown && columnHidden) {
         const w = Math.round(toggleButton.getBoundingClientRect().width) || 120;
         anchor.style.marginRight = w + 12 + ANCHOR_GAP + 'px';
       } else {
