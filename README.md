@@ -6,9 +6,7 @@ These are local browser tools (bookmarklets and userscripts) for personal workfl
 
 ## What's in here
 
-This repository holds the **shareable** tools listed below. Anyone on the team can install them from the links in the table.
-
-Some tools are kept **personal and local-only** and are intentionally not included here.
+This repository holds the tools listed below. Anyone on the team can install them from the links in the table.
 
 ## Tools
 
@@ -37,26 +35,11 @@ Install from the raw GitHub link rather than copying and pasting the code — in
 
 The Theme Details bookmarklet is built from source and pasted into a browser bookmark. See [`bookmarklets/theme-details/README.md`](bookmarklets/theme-details/README.md) for build and install steps. From Pi you can run `theme-details-bookmarklet open-install` for a local install page.
 
-## How updates work
+## Updates
 
-- **Userscripts:** each script includes an `@updateURL` (a small `.meta.js`) and `@downloadURL` (the full `.user.js`). Userscript managers compare the installed `@version` against the remote metadata and offer an update when it changes. To ship an update, bump `@version` in **both** the `.user.js` and its matching `.meta.js`, then commit and push.
-- **Bookmarklet:** the installed bookmarklet checks this repo's `version.json` and shows an update message when it's behind.
+Userscripts update automatically — your userscript manager checks for new versions (or use its "Check for updates" button). The Theme Details bookmarklet shows a message when a newer version is available.
 
 ## Safety notes
 
-- Review scripts before running them.
-- These tools are for local browser workflow convenience only.
-- They do not modify merchant theme code, storefront code, or Shopify platform behaviour.
-- Do **not** add merchant data, ticket details, credentials, or internal-only infrastructure/documentation to this repository. It is public.
-- Be careful with anything that targets Shopify Admin or internal tools. Keep the scope narrow and the behaviour easy to understand.
-
-## Planned scope
-
-The initial scope is browser tools and userscripts. Possible future additions:
-
-- Theme support diagnostics for DevTools
-- Reusable troubleshooting checklists
-- Theme customization snippets
-- Known issue notes
-
-The goal is to keep the repository small, useful, and easy to maintain.
+- These tools are for local browser workflow convenience only and do not modify merchant theme code, storefront code, or Shopify platform behaviour.
+- This repository is public — do not add merchant data, ticket details, credentials, or internal-only information to it.
