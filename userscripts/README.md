@@ -2,7 +2,7 @@
 
 Local browser userscripts for Theme Support workflow improvements.
 
-New to userscripts? The generic install steps (which manager to use, how to install, how updates work) live in the [root README](../README.md#installing-a-userscript). This page covers the individual scripts, per-script notes, troubleshooting, and my own maintainer notes.
+New to userscripts? The generic install steps (which manager to use, how to install) live in the [root README](../README.md#installing-a-userscript). This page covers the individual scripts, per-script notes, troubleshooting, and how to update them.
 
 ## Available scripts
 
@@ -36,13 +36,17 @@ If a userscript does not appear to be working after installation:
 4. Log out and back in if the tab relies on an authenticated session.
 5. If it still needs attention, contact @BrenLong on Slack with the script name, browser, userscript manager, and what happened.
 
-## Maintainer notes
+## Updating
 
-Just for me, since I'm the one who updates these. To ship a change:
+Your userscript manager keeps these up to date automatically — it periodically checks each script's update link and installs new versions in the background (OrangeMonkey checks daily by default; Tampermonkey and Violentmonkey behave similarly).
 
-1. Edit the `.user.js`.
-2. Bump `@version` in both the `.user.js` and its matching `.meta.js` (userscript managers compare against the `.meta.js`).
-3. Commit and push — installed copies update on their next check.
+To update right away instead of waiting:
+
+1. Open your userscript manager's dashboard.
+2. Trigger a check for updates:
+   - **Tampermonkey:** the **Utilities** tab → **Check for userscript updates**.
+   - **OrangeMonkey / Violentmonkey:** the **Check for updates** button on the installed script.
+3. Reload the affected tab (Shopify Admin, Theme Editor, or Beacon).
 
 ## Notes
 
