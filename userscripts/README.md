@@ -2,37 +2,50 @@
 
 Local browser userscripts for Theme Support workflow improvements.
 
-## Install
-
-1. Install a userscript manager. [OrangeMonkey](https://kepler.shopify.io/services/orangemonkey) is the current Kepler-approved userscript manager as of 05/05/2026. Tampermonkey, Violentmonkey, or similar userscript managers may also work.
-2. Click the install link beside the relevant script below.
-3. Accept the install prompt from your userscript manager.
-4. Reload Shopify Admin or Theme Editor tabs.
-
-Avoid copying and pasting the script manually unless you are testing local changes. Installing from the raw GitHub URL gives the userscript manager the best chance of detecting future updates.
+New to userscripts? The generic install steps (which manager to use, how to install, how updates work) live in the [root README](../README.md#installing-a-userscript). This page covers the individual scripts, per-script notes, troubleshooting, and the release process.
 
 ## Available scripts
 
-| Script | Install link | Purpose |
-| --- | --- | --- |
-| [`theme-editor-inspector-default-off.user.js`](theme-editor-inspector-default-off.user.js) | [Install](https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.user.js) | Defaults the Shopify Theme Editor Preview inspector to off. |
+| Script | Install | Runs on | Purpose |
+| --- | --- | --- | --- |
+| [`theme-editor-inspector-default-off.user.js`](theme-editor-inspector-default-off.user.js) | [Install](https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.user.js) | Shopify Admin + Theme Editor | Defaults the Shopify Theme Editor Preview inspector to off. |
+| [`beacon-copilot-panel-toggle.user.js`](beacon-copilot-panel-toggle.user.js) | [Install](https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/beacon-copilot-panel-toggle.user.js) | Beacon | Hides Beacon's Copilot (suggested-response) sidebar by default to widen the chat panel, with a floating button to show/hide it. Remembers your last choice. |
+
+## Per-script notes
+
+### Theme Editor Preview Inspector Default Off
+
+Sets the Theme Editor's existing `previewInspectorEnabled` session preference to off before the editor initializes, so the Preview inspector isn't on by default.
+
+The Theme Editor runs inside an embedded Online Store Web iframe (usually on `online-store-web.shopifyapps.com`). The script therefore matches both Shopify Admin and Online Store Web origins so the preference is set in the same browser context the editor reads from.
+
+### Beacon Copilot Panel Toggle
+
+Hides the Copilot column by default in both Beacon chat layouts (regular chat and live-assist consultation) to widen the chat, and adds a floating button to show/hide it. Your choice is remembered.
+
+- When a consultation escalation panel opens inside the hidden column, the panel is revealed automatically and the button becomes a "Close panel" control.
+- When the "Request to take over chat" button is present, the toggle button docks beside it; otherwise it sits in the top-right corner.
 
 ## Troubleshooting
 
 If a userscript does not appear to be working after installation:
 
 1. Confirm the script is enabled in your userscript manager.
-2. Reload Shopify Admin and any open Theme Editor tabs.
-3. Clear your browser cache for Shopify Admin and Online Store Web, then reload again.
-4. Log out of Shopify Admin and log back in.
-5. If the issue still needs attention, contact @BrenLong on Slack with the script name, browser, userscript manager, and what happened.
+2. Reload the relevant tab (Shopify Admin, Theme Editor, or Beacon).
+3. Clear your browser cache for the relevant origin, then reload again.
+4. Log out and back in if the tab relies on an authenticated session.
+5. If it still needs attention, contact @BrenLong on Slack with the script name, browser, userscript manager, and what happened.
 
-## Updating
+## Updating and releasing
 
-By default, OrangeMonkey automatically checks installed scripts for updates every day. You can also manually use the "Check for updates" button after the script is installed.
+By default, OrangeMonkey checks installed scripts for updates daily; you can also use its "Check for updates" button. When the remote `@version` is higher than the installed one, it downloads the latest `.user.js` from GitHub.
 
-When an update is available, OrangeMonkey checks the script metadata and downloads the latest version from GitHub.
+To ship an update:
+
+1. Make your change in the `.user.js` file.
+2. Bump `@version` in **both** the `.user.js` and its matching `.meta.js` (the manager compares against the `.meta.js`).
+3. Commit and push. Installed copies pick up the new version on their next update check.
 
 ## Notes
 
-These scripts are intended for local browser workflow convenience only. They do not modify merchant theme code, storefront code, or Shopify platform behaviour.
+These scripts are for local browser workflow convenience only. They do not modify merchant theme code, storefront code, or Shopify platform behaviour.
