@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Beacon - Copilot Panel Toggle
 // @namespace    theme-support-toolkit
-// @version      1.9.1
+// @version      1.10.0
 // @description  Hides Beacon's Copilot (suggested response) sidebar by default to widen the chat panel, with a floating button to show/hide it. Remembers your last choice.
 // @author       Brendan Long
 // @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/beacon-copilot-panel-toggle.meta.js
@@ -179,11 +179,41 @@
       @media (max-width: 1023.98px) {
         ${CONSULT} { grid-template-columns: minmax(0, 20rem) 1fr !important; }
       }
+
+      /* Lighthouse compatibility (ShopiMonkey userscript by Peter Richmond).
+         Lighthouse wraps the composer textarea in a .lh_textarea-container and
+         freezes it to a fixed PIXEL width measured once at injection time
+         (width set to textarea.offsetWidth px), so it does not follow the column
+         when we widen the chat by hiding Copilot -- leaving the composer stuck
+         narrow and shoved to the right (empty strip on the left). Because
+         Lighthouse sets that width as an inline style WITHOUT !important, this
+         stylesheet rule with !important overrides it and restores fluid width.
+         Harmless no-op for anyone who doesn't run Lighthouse (selector matches
+         nothing). Also un-freezes its px-width toolbar bar. */
+      .lh_textarea-container {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .lh_textarea-menu {
+        width: 100% !important;
+      }
+      /* Lighthouse forces a 5px textarea top padding and no bottom padding
+         (Beacon's native textarea has none of its own), so the message sits
+         cramped against the toolbar on top and flush to the bottom as it grows.
+         Restore balanced breathing room on Lighthouse-decorated textareas only.
+         (0,1,1) specificity beats Lighthouse's bare textarea rule. */
+      textarea.lh_textarea-with-menu {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+      }
+
       #tsx-copilot-toggle-btn {
         position: fixed;
         top: 66px;
         right: 12px;
-        z-index: 2147483000;
+        /* Above the chat panels/content, but below Beacon's own dropdowns and
+           menus (e.g. the top-bar status selector) so we never cover them. */
+        z-index: 9;
         display: inline-flex;
         align-items: center;
         gap: 6px;
