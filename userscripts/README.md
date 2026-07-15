@@ -10,6 +10,7 @@ New to userscripts? The generic install steps (which manager to use, how to inst
 | --- | --- | --- | --- |
 | [`theme-editor-inspector-default-off.user.js`](theme-editor-inspector-default-off.user.js) | [Install](https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/theme-editor-inspector-default-off.user.js) | Shopify Admin + Theme Editor | Defaults the Shopify Theme Editor Preview inspector to off. |
 | [`beacon-copilot-panel-toggle.user.js`](beacon-copilot-panel-toggle.user.js) | [Install](https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/beacon-copilot-panel-toggle.user.js) | Beacon | Hides Beacon's Copilot (suggested-response) sidebar by default to widen the chat panel, with a floating button to show/hide it. Remembers your last choice. |
+| [`beacon-uximprovements.user.js`](beacon-uximprovements.user.js) | Work in progress | Beacon | Small quality-of-life tweaks for Beacon. Currently gives the internal Notes field more room. |
 
 ## Per-script notes
 
@@ -25,6 +26,14 @@ Hides the Copilot column by default in both Beacon chat layouts (regular chat an
 
 - When a consultation escalation panel opens inside the hidden column, the panel is revealed automatically and the button becomes a "Close panel" control.
 - When the "Request to take over chat" button is present, the toggle button docks beside it; otherwise it sits in the top-right corner.
+
+### Beacon UX Improvements (work in progress)
+
+A home for small, general Beacon quality-of-life tweaks. Currently:
+
+- Gives the internal Notes field (the yellow internal-note textarea) more room so pasted notes are visible without scrolling the little box. It stays drag-resizable.
+
+Still in progress and not yet shared for install.
 
 ## Troubleshooting
 
