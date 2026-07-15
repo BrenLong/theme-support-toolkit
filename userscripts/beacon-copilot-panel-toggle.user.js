@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Beacon - Copilot Panel Toggle
 // @namespace    theme-support-toolkit
-// @version      1.10.0
+// @version      1.10.1
 // @description  Hides Beacon's Copilot (suggested response) sidebar by default to widen the chat panel, with a floating button to show/hide it. Remembers your last choice.
 // @author       Brendan Long
 // @updateURL    https://raw.githubusercontent.com/BrenLong/theme-support-toolkit/main/userscripts/beacon-copilot-panel-toggle.meta.js
@@ -94,22 +94,12 @@
     return false;
   }
 
-  // Returns the escalation panel's own Close/Back button when the panel is
-  // rendered inside the hidden Copilot column. The consultation grid is
-  // min-w-[850px] and overflows narrow windows, pushing that button off the
-  // right edge -- so our toggle clicks it programmatically instead.
-  function inColumnPanelCloseButton() {
-    const grids = document.querySelectorAll(GRID_SELECTOR);
-    for (let i = 0; i < grids.length; i++) {
-      const cols = grids[i].querySelectorAll(':scope > [class*="bg-bg-app"]');
-      for (let j = 0; j < cols.length; j++) {
-        const panel = cols[j].querySelector(ESCALATION_SELECTOR);
-        if (panel) {
-          return panel.querySelector('[aria-label="Close"], [aria-label="Back"]');
-        }
-      }
-    }
-    return null;
+  // True when the Prepare escalation panel is open anywhere on the page (in the
+  // in-column consultation flow or a RightSheet overlay). The panel has its own
+  // Close (X) control, which sits exactly where our button does, so we hide our
+  // button while it is open to avoid covering the X.
+  function escalationPanelOpen() {
+    return !!document.querySelector(ESCALATION_SELECTOR);
   }
 
   let toggleButton = null;
@@ -319,23 +309,14 @@
 
   function updateButton() {
     if (!toggleButton) return;
-    const inColumnPanel = escalationInHiddenColumn();
 
-    // Show the button when a Copilot column exists AND we're not being covered
-    // by a right overlay -- except keep it visible for an in-column escalation
-    // panel, where our button IS the closer.
+    // Show the button when a Copilot column exists, we're not covered by a right
+    // overlay, and the Prepare escalation panel is not open (its native X close
+    // button sits where our button does, so we get out of its way).
     const show =
-      anyCopilotColumn() && (inColumnPanel || !rightOverlayOpen());
+      anyCopilotColumn() && !escalationPanelOpen() && !rightOverlayOpen();
     toggleButton.style.display = show ? 'inline-flex' : 'none';
     if (!show) return;
-
-    // While an escalation panel is force-shown inside the column, the button
-    // becomes its closer (its own Close X can be scrolled off-screen).
-    if (inColumnPanel) {
-      toggleButton.innerHTML = '<span class="tsx-dot"></span>Close panel';
-      toggleButton.title = 'Close the escalation panel';
-      return;
-    }
 
     const hidden = isHidden();
     toggleButton.innerHTML = '<span class="tsx-dot"></span>' +
@@ -352,14 +333,6 @@
     toggleButton.type = 'button';
     toggleButton.style.display = 'none';
     toggleButton.addEventListener('click', function () {
-      // If an escalation panel is open inside the column, close it (its native
-      // Close button may be off-screen in narrow windows).
-      const closeBtn = inColumnPanelCloseButton();
-      if (closeBtn) {
-        closeBtn.click();
-        scheduleApply();
-        return;
-      }
       setHidden(!isHidden());
       scheduleApply();
     });
